@@ -8,7 +8,7 @@ MAINTAINER alik@robarts.ca
 ENV PATH /opt/conda/bin:$PATH
 #needed to create /usr/share/man/man1 folder to avoid error when installing jre
 #python dependencies
-RUN apt-get update && mkdir -p /usr/share/man/man1  &&  apt-get install -y curl tree unzip default-jre && pip install --upgrade pip && \
+RUN apt-get update && mkdir -p /usr/share/man/man1  &&  apt-get install -y curl tree unzip bc default-jre && pip install --upgrade pip && \
 conda install tensorflow-gpu==1.14 && conda install -c anaconda opencv scikit-learn pyyaml && conda install -c simpleitk simpleitk && \
 pip install niftynet==0.6.0 niwidgets==0.1.3
 
