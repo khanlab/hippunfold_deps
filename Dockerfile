@@ -4,13 +4,29 @@ MAINTAINER alik@robarts.ca
 
 #dependencies for hippocampal autotop
 # note: this installs minified versions of fsl and ants to save space.. 
+# note 2: niftynet and snakemake/snakebids are installed in two separate conda environments
 
 ENV PATH /opt/conda/bin:$PATH
 #needed to create /usr/share/man/man1 folder to avoid error when installing jre
 #python dependencies
-RUN apt-get update && mkdir -p /usr/share/man/man1  &&  apt-get install -y curl tree unzip bc default-jre && pip install --upgrade pip && \
-conda install tensorflow-gpu==1.14 && conda install -c anaconda opencv scikit-learn pyyaml && conda install -c simpleitk simpleitk && \
-pip install niftynet==0.6.0 niwidgets==0.1.3
+
+#install linux deps
+RUN apt-get update && mkdir -p /usr/share/man/man1  &&  apt-get install -y curl tree unzip bc default-jre  
+
+
+#create a conda env for niftynet
+RUN conda create -n niftynet python==3.7 && conda install -n niftynet -c anaconda pip && \
+conda install -n niftynet tensorflow-gpu==1.14 && \
+conda install -n niftynet -c anaconda opencv scikit-learn pyyaml && \
+conda install -n niftynet -c simpleitk simpleitk && \
+conda run -n niftynet pip install niftynet==0.6.0 niwidgets==0.1.3 
+
+RUN apt-get install -y wget bzip2 ca-certificates gnupg2 squashfs-tools git 
+RUN conda install -c conda-forge mamba && \
+mamba create -c conda-forge -c bioconda -n snakemake snakemake && \
+conda run -n snakemake pip install snakebids
+
+
 
 #install ants
 #we only need antsRegistration and antsApplyTransforms, can remove everything else
@@ -43,15 +59,3 @@ unzip /opt/mcr-install/install.zip -d /opt/mcr-install && \
 rm -rf /opt/mcr-install
 
 
-# base directory for Hippocampal_AutoTop
-#RUN mkdir -p /src/
-#COPY . /src
-
-# download reference atlases
-#RUN curl -s -L --retry 6  https://www.dropbox.com/s/40xtlok0ns4bo7j/atlases_CITI.tar | tar x -C /src
-#RUN curl -s -L --retry 6  https://www.dropbox.com/s/g3jjqbrx62m9roo/atlases_UPenn_ExVivo.tar | tar x -C /src
-#RUN chmod a+rX -R /src
-
-#ENV AUTOTOP_DIR /src
-
-#ENTRYPOINT ["/src/mcr_v97/run_singleSubject.sh", "/opt/mcr/v97" ]
