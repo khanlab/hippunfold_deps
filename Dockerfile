@@ -24,12 +24,23 @@ conda install -n niftynet -c anaconda opencv scikit-learn pyyaml && \
 conda install -n niftynet -c simpleitk simpleitk && \
 conda run -n niftynet pip install niftynet==0.6.0 niwidgets==0.1.3 
 
+#create conda env for snakemake
 RUN apt-get install -y wget bzip2 ca-certificates gnupg2 squashfs-tools git 
 RUN conda install -c conda-forge mamba && \
 mamba create -c conda-forge -c bioconda -n snakemake snakemake && \
 conda run -n snakemake pip install snakebids
 
-
+#create links for snakemake, niftynet executables
+RUN mkdir -p /opt/bin && \
+ln -s /opt/conda/envs/niftynet/bin/net_segment /opt/bin && \
+ln -s /opt/conda/envs/niftynet/bin/net_run /opt/bin && \
+ln -s /opt/conda/envs/niftynet/bin/net_regress /opt/bin && \
+ln -s /opt/conda/envs/niftynet/bin/net_gan /opt/bin && \
+ln -s /opt/conda/envs/niftynet/bin/net_download /opt/bin && \
+ln -s /opt/conda/envs/niftynet/bin/net_classify /opt/bin && \
+ln -s /opt/conda/envs/niftynet/bin/net_autoencoder /opt/bin && \
+ln -s /opt/conda/envs/snakemake/bin/snakemake /opt/bin 
+ENV PATH "/opt/bin:$PATH"
 
 #install ants
 #we only need antsRegistration and antsApplyTransforms, can remove everything else
@@ -54,8 +65,6 @@ ENV FSLMULTIFILEQUIT TRUE
 #install c3d
 RUN mkdir -p /opt/c3d && curl -s -L --retry 6 https://www.dropbox.com/s/bkw5mfp8r4mczsx/c3d-1.1.0-Linux-gcc64.tar.gz | tar zx -C /opt/c3d --strip-components=1
 ENV PATH "/opt/c3d/bin:$PATH"
-
-
 
 
 #install mcr
