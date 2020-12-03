@@ -16,6 +16,7 @@ RUN apt-get update && mkdir -p /usr/share/man/man1  &&  apt-get install -y curl 
 #install workbench
 RUN mkdir -p /opt && cd /opt && wget -q https://www.humanconnectome.org/storage/app/media/workbench/workbench-linux64-v1.4.2.zip && unzip workbench-linux64-v1.4.2.zip && rm workbench-linux64-v1.4.2.zip && cd /
 ENV PATH "/opt/workbench/bin_linux64:$PATH"
+ENV LD_LIBRARY_PATH "/opt/workbench/libs_linux64:/opt/workbench/libs_linux64_software_opengl:$LD_LIBRARY_PATH"
 
 #create a conda env for niftynet
 RUN conda create -n niftynet python==3.7 && conda install -n niftynet -c anaconda pip && \
