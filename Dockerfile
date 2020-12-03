@@ -11,8 +11,11 @@ ENV PATH /opt/conda/bin:$PATH
 #python dependencies
 
 #install linux deps
-RUN apt-get update && mkdir -p /usr/share/man/man1  &&  apt-get install -y curl tree unzip bc default-jre  
+RUN apt-get update && mkdir -p /usr/share/man/man1  &&  apt-get install -y curl tree unzip bc default-jre libgomp1
 
+#install workbench
+RUN mkdir -p /opt && cd /opt && wget -q https://www.humanconnectome.org/storage/app/media/workbench/workbench-linux64-v1.4.2.zip && unzip workbench-linux64-v1.4.2.zip && rm workbench-linux64-v1.4.2.zip && cd /
+ENV PATH "/opt/workbench/bin_linux64:$PATH"
 
 #create a conda env for niftynet
 RUN conda create -n niftynet python==3.7 && conda install -n niftynet -c anaconda pip && \
@@ -51,6 +54,9 @@ ENV FSLMULTIFILEQUIT TRUE
 #install c3d
 RUN mkdir -p /opt/c3d && curl -s -L --retry 6 https://www.dropbox.com/s/bkw5mfp8r4mczsx/c3d-1.1.0-Linux-gcc64.tar.gz | tar zx -C /opt/c3d --strip-components=1
 ENV PATH "/opt/c3d/bin:$PATH"
+
+
+
 
 #install mcr
 RUN mkdir -p /opt/mcr-install && curl -L --retry 5 https://ssd.mathworks.com/supportfiles/downloads/R2019b/Release/5/deployment_files/installer/complete/glnxa64/MATLAB_Runtime_R2019b_Update_5_glnxa64.zip > /opt/mcr-install/install.zip && \
