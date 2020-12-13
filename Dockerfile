@@ -11,7 +11,23 @@ ENV PATH /opt/conda/bin:$PATH
 #python dependencies
 
 #install linux deps
-RUN apt-get update && mkdir -p /usr/share/man/man1  &&  apt-get install -y curl tree unzip bc default-jre libgomp1
+RUN apt-get update && mkdir -p /usr/share/man/man1  &&  apt-get install -y curl tree unzip bc default-jre libgomp1 cmake cmake-curses-gui libpng-dev zlib1g-dev build-essential wget bzip2 ca-certificates gnupg2 squashfs-tools git 
+
+#install niftyreg
+RUN mkdir -p /opt/niftyreg-1.3.9/src && \
+  echo "Downloading http://sourceforge.net/projects/niftyreg/files/nifty_reg-${NIFTY_VER}/nifty_reg-${NIFTY_VER}.tar.gz/download" && \
+  curl -L http://sourceforge.net/projects/niftyreg/files/nifty_reg-1.3.9/nifty_reg-1.3.9.tar.gz/download \
+    | tar xz -C /opt/niftyreg-1.3.9/src --strip-components 1 && \
+cd /opt/niftyreg-1.3.9  && \
+cmake /opt/niftyreg-1.3.9/src \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_SHARED_LIBS=OFF \
+    -DBUILD_TESTING=OFF \
+    -DCMAKE_INSTALL_PREFIX=/opt/niftyreg-1.3.9  && \
+  make && \
+  make install && rm -rf /opt/niftyreg-1.3.9/src 
+ENV LD_LIBRARY_PATH /opt/niftyreg-1.3.9/lib:$LD_LIBRARY_PATH 
+ENV PATH /opt/niftyreg-1.3.9/bin:$PATH
 
 #install workbench
 RUN mkdir -p /opt && cd /opt && wget -q https://www.humanconnectome.org/storage/app/media/workbench/workbench-linux64-v1.4.2.zip && unzip workbench-linux64-v1.4.2.zip && rm workbench-linux64-v1.4.2.zip && cd /
@@ -25,13 +41,7 @@ conda install -n niftynet -c anaconda opencv scikit-learn pyyaml && \
 conda install -n niftynet -c simpleitk simpleitk && \
 conda run -n niftynet pip install niftynet==0.6.0 niwidgets==0.1.3 
 
-#create conda env for snakemake
-RUN apt-get install -y wget bzip2 ca-certificates gnupg2 squashfs-tools git 
-RUN conda install -c conda-forge mamba && \
-mamba create -c conda-forge -c bioconda -n snakemake snakemake && \
-conda run -n snakemake pip install snakebids
-
-#create links for snakemake, niftynet executables
+#create links for niftynet executables
 RUN mkdir -p /opt/bin && \
 ln -s /opt/conda/envs/niftynet/bin/net_segment /opt/bin && \
 ln -s /opt/conda/envs/niftynet/bin/net_run /opt/bin && \
@@ -40,14 +50,13 @@ ln -s /opt/conda/envs/niftynet/bin/net_gan /opt/bin && \
 ln -s /opt/conda/envs/niftynet/bin/net_download /opt/bin && \
 ln -s /opt/conda/envs/niftynet/bin/net_classify /opt/bin && \
 ln -s /opt/conda/envs/niftynet/bin/net_autoencoder /opt/bin && \
-ln -s /opt/conda/envs/snakemake/bin/snakemake /opt/bin 
 ENV PATH "/opt/bin:$PATH"
 
 #install ants
-#we only need antsRegistration and antsApplyTransforms, can remove everything else
+#we only need antsRegistration N4BiasFieldCorrection and antsApplyTransforms, can remove everything else
 RUN mkdir -p /opt/ants-2.3.1 && curl -fsSL --retry 5 https://dl.dropbox.com/s/1xfhydsf4t4qoxg/ants-Linux-centos6_x86_64-v2.3.1.tar.gz \
 | tar -xz -C /opt/ants-2.3.1 --strip-components 1 && \
-mkdir /opt/ants-2.3.1-minify && for bin in antsRegistration antsApplyTransforms; do mv /opt/ants-2.3.1/${bin} /opt/ants-2.3.1-minify; done  && \
+mkdir /opt/ants-2.3.1-minify && for bin in antsRegistration antsApplyTransforms N4BiasFieldCorrection; do mv /opt/ants-2.3.1/${bin} /opt/ants-2.3.1-minify; done  && \
 rm -rf /opt/ants-2.3.1
 ENV PATH "/opt/ants-2.3.1-minify:$PATH"
 
