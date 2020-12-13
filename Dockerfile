@@ -49,7 +49,7 @@ ln -s /opt/conda/envs/niftynet/bin/net_regress /opt/bin && \
 ln -s /opt/conda/envs/niftynet/bin/net_gan /opt/bin && \
 ln -s /opt/conda/envs/niftynet/bin/net_download /opt/bin && \
 ln -s /opt/conda/envs/niftynet/bin/net_classify /opt/bin && \
-ln -s /opt/conda/envs/niftynet/bin/net_autoencoder /opt/bin && \
+ln -s /opt/conda/envs/niftynet/bin/net_autoencoder /opt/bin
 ENV PATH "/opt/bin:$PATH"
 
 #install ants
