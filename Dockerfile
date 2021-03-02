@@ -30,7 +30,7 @@ ENV LD_LIBRARY_PATH /opt/niftyreg-1.3.9/lib:$LD_LIBRARY_PATH
 ENV PATH /opt/niftyreg-1.3.9/bin:$PATH
 
 #install workbench
-RUN mkdir -p /opt && cd /opt && wget -q https://www.humanconnectome.org/storage/app/media/workbench/workbench-linux64-v1.4.2.zip && unzip workbench-linux64-v1.4.2.zip && rm workbench-linux64-v1.4.2.zip && cd /
+RUN mkdir -p /opt && cd /opt && wget -q https://www.humanconnectome.org/storage/app/media/workbench/workbench-linux64-v1.5.0.zip && unzip workbench-linux64-v1.5.0.zip && rm workbench-linux64-v1.5.0.zip && cd /
 ENV PATH "/opt/workbench/bin_linux64:$PATH"
 ENV LD_LIBRARY_PATH "/opt/workbench/libs_linux64:/opt/workbench/libs_linux64_software_opengl:$LD_LIBRARY_PATH"
 
