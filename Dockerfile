@@ -11,7 +11,7 @@ ENV PATH /opt/conda/bin:$PATH
 #python dependencies
 
 #install linux deps
-RUN apt-get update && mkdir -p /usr/share/man/man1  &&  apt-get install -y curl tree unzip bc default-jre libgomp1 cmake cmake-curses-gui libpng-dev zlib1g-dev build-essential wget bzip2 ca-certificates gnupg2 squashfs-tools git 
+RUN apt-get update && mkdir -p /usr/share/man/man1  &&  apt-get install -y curl tree unzip bc default-jre libgomp1 cmake cmake-curses-gui libpng-dev zlib1g-dev build-essential wget bzip2 ca-certificates gnupg2 squashfs-tools git graphviz-dev
 
 #install niftyreg
 RUN mkdir -p /opt/niftyreg-1.3.9/src && \
@@ -34,23 +34,6 @@ RUN mkdir -p /opt && cd /opt && wget -q https://www.humanconnectome.org/storage/
 ENV PATH "/opt/workbench/bin_linux64:$PATH"
 ENV LD_LIBRARY_PATH "/opt/workbench/libs_linux64:/opt/workbench/libs_linux64_software_opengl:$LD_LIBRARY_PATH"
 
-#create a conda env for niftynet
-RUN conda create -n niftynet python==3.7 && conda install -n niftynet -c anaconda pip && \
-conda install -n niftynet tensorflow-gpu==1.14 && \
-conda install -n niftynet -c anaconda opencv scikit-learn pyyaml && \
-conda install -n niftynet -c simpleitk simpleitk && \
-conda run -n niftynet pip install niftynet==0.6.0 niwidgets==0.1.3 
-
-#create links for niftynet executables
-RUN mkdir -p /opt/bin && \
-ln -s /opt/conda/envs/niftynet/bin/net_segment /opt/bin && \
-ln -s /opt/conda/envs/niftynet/bin/net_run /opt/bin && \
-ln -s /opt/conda/envs/niftynet/bin/net_regress /opt/bin && \
-ln -s /opt/conda/envs/niftynet/bin/net_gan /opt/bin && \
-ln -s /opt/conda/envs/niftynet/bin/net_download /opt/bin && \
-ln -s /opt/conda/envs/niftynet/bin/net_classify /opt/bin && \
-ln -s /opt/conda/envs/niftynet/bin/net_autoencoder /opt/bin
-ENV PATH "/opt/bin:$PATH"
 
 #install ants
 #we only need antsRegistration N4BiasFieldCorrection and antsApplyTransforms, can remove everything else
