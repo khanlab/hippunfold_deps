@@ -36,10 +36,10 @@ ENV LD_LIBRARY_PATH "/opt/workbench/libs_linux64:/opt/workbench/libs_linux64_sof
 
 
 #install ants
-#we only need antsRegistration N4BiasFieldCorrection and antsApplyTransforms, can remove everything else
+#we only need antsRegistration N4BiasFieldCorrection ComposeMultiTransform and antsApplyTransforms , can remove everything else
 RUN mkdir -p /opt/ants-2.3.1 && curl -fsSL --retry 5 https://dl.dropbox.com/s/1xfhydsf4t4qoxg/ants-Linux-centos6_x86_64-v2.3.1.tar.gz \
 | tar -xz -C /opt/ants-2.3.1 --strip-components 1 && \
-mkdir /opt/ants-2.3.1-minify && for bin in antsRegistration antsApplyTransforms N4BiasFieldCorrection; do mv /opt/ants-2.3.1/${bin} /opt/ants-2.3.1-minify; done  && \
+mkdir /opt/ants-2.3.1-minify && for bin in antsRegistration antsApplyTransforms N4BiasFieldCorrection ComposeMultiTransform; do mv /opt/ants-2.3.1/${bin} /opt/ants-2.3.1-minify; done  && \
 rm -rf /opt/ants-2.3.1
 ENV PATH "/opt/ants-2.3.1-minify:$PATH"
 
