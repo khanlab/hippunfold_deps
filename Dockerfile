@@ -60,10 +60,4 @@ RUN mkdir -p /opt/c3d && curl -s -L --retry 6 https://www.dropbox.com/s/bkw5mfp8
 ENV PATH "/opt/c3d/bin:$PATH"
 
 
-#install mcr
-RUN mkdir -p /opt/mcr-install && curl -L --retry 5 https://ssd.mathworks.com/supportfiles/downloads/R2019b/Release/5/deployment_files/installer/complete/glnxa64/MATLAB_Runtime_R2019b_Update_5_glnxa64.zip > /opt/mcr-install/install.zip && \
-unzip /opt/mcr-install/install.zip -d /opt/mcr-install && \
-/opt/mcr-install/install -mode silent -agreeToLicense yes -destinationFolder /opt/mcr && \
-rm -rf /opt/mcr-install
-
 
