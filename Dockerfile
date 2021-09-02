@@ -35,7 +35,7 @@ wget -O itksnap.tar.gz 'https://sourceforge.net/projects/itk-snap/files/itk-snap
 apt --allow-releaseinfo-change  update && \
 apt install -y openjdk-11-jdk && \
 cd /tmp && wget https://files.pythonhosted.org/packages/97/c6/9249f9cc99404e782ce06b3a3710112c32783df59e9bd5ef94cd2771ccaa/JCC-3.10.tar.gz && \
-tar -xvzf JCC-3.10.tar.gz && \ 
+tar -xvzf JCC-3.10.tar.gz
 
 COPY nighres_custom/setup.py /tmp/JCC-3.10
 ENV PATH $PATH:/usr/lib/jvm/java-11-openjdk-amd64/bin
