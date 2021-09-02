@@ -31,24 +31,20 @@ wget -O itksnap.tar.gz 'https://sourceforge.net/projects/itk-snap/files/itk-snap
 \
 && tar -zxf itksnap.tar.gz -C /opt/ \
 && mv /opt/itksnap-*/ /opt/itksnap/ \
-&& rm itksnap.tar.gz
+&& rm itksnap.tar.gz && \
+apt --allow-releaseinfo-change  update && \
+apt install -y openjdk-11-jdk && \
+cd /tmp && wget https://files.pythonhosted.org/packages/97/c6/9249f9cc99404e782ce06b3a3710112c32783df59e9bd5ef94cd2771ccaa/JCC-3.10.tar.gz && \
+tar -xvzf JCC-3.10.tar.gz && \ 
 
-RUN apt --allow-releaseinfo-change  update
-RUN apt install -y openjdk-11-jdk
-RUN cd /tmp && wget https://files.pythonhosted.org/packages/97/c6/9249f9cc99404e782ce06b3a3710112c32783df59e9bd5ef94cd2771ccaa/JCC-3.10.tar.gz && tar -xvzf JCC-3.10.tar.gz
 COPY nighres_custom/setup.py /tmp/JCC-3.10
-
-#export NO_SHARED=1
 ENV PATH $PATH:/usr/lib/jvm/java-11-openjdk-amd64/bin
 ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/lib/jvm/java-11-openjdk-amd64/lib
 ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/
 ENV JCC_JDK /usr/lib/jvm/java-11-openjdk-amd64/
-RUN cd /tmp/JCC-3.10 && python setup.py install
 
-RUN cd /opt && git clone http://github.com/nighres/nighres && cd /opt/nighres && ./build.sh && cd /opt/nighres && pip install . 
-
-
-
+RUN cd /tmp/JCC-3.10 && python setup.py install && \
+cd /opt && git clone http://github.com/nighres/nighres && cd /opt/nighres && ./build.sh && cd /opt/nighres && pip install . 
 
 ENV LD_LIBRARY_PATH /opt/itksnap/lib/:/opt/niftyreg-1.3.9/lib:/opt/workbench/libs_linux64:/opt/workbench/libs_linux64_software_opengl:${LD_LIBRARY_PATH}
 ENV PATH /opt/conda/bin:/opt/itksnap/bin/:/opt/niftyreg-1.3.9/bin:/opt/workbench/bin_linux64:/opt/ants-2.3.1-minify:/opt/fsl-5.0.11/bin-minify:$PATH
