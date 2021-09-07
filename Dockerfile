@@ -53,5 +53,6 @@ ENV PATH /opt/conda/bin:/opt/itksnap/bin/:/opt/niftyreg-1.3.9/bin:/opt/workbench
 ENV FSLDIR "/opt/fsl-5.0.11"
 ENV FSLOUTPUTTYPE NIFTI_GZ
 ENV FSLMULTIFILEQUIT TRUE
+ENV _JAVA_OPTIONS=
 
 
