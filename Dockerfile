@@ -5,7 +5,7 @@ MAINTAINER alik@robarts.ca
 #dependencies for hippocampal autotop
 # note: this installs minified versions of fsl and ants to save space.. 
 
-RUN apt-get update && mkdir -p /usr/share/man/man1  &&  apt-get install -y curl tree unzip bc default-jre libgomp1 cmake cmake-curses-gui libpng-dev zlib1g-dev build-essential wget bzip2 ca-certificates gnupg2 squashfs-tools git graphviz-dev && \
+RUN apt-get --allow-releaseinfo-change  update && mkdir -p /usr/share/man/man1  &&  apt-get install -y curl tree unzip bc default-jre libgomp1 cmake cmake-curses-gui libpng-dev zlib1g-dev build-essential wget bzip2 ca-certificates gnupg2 squashfs-tools git graphviz-dev && \
 mkdir -p /opt/niftyreg-1.3.9/src && \
   echo "Downloading http://sourceforge.net/projects/niftyreg/files/nifty_reg-${NIFTY_VER}/nifty_reg-${NIFTY_VER}.tar.gz/download" && \
   curl -L http://sourceforge.net/projects/niftyreg/files/nifty_reg-1.3.9/nifty_reg-1.3.9.tar.gz/download \
@@ -31,9 +31,23 @@ wget -O itksnap.tar.gz 'https://sourceforge.net/projects/itk-snap/files/itk-snap
 \
 && tar -zxf itksnap.tar.gz -C /opt/ \
 && mv /opt/itksnap-*/ /opt/itksnap/ \
-&& rm itksnap.tar.gz
+&& rm itksnap.tar.gz && \
+apt --allow-releaseinfo-change  update && \
+apt install -y openjdk-11-jdk && \
+cd /tmp && wget https://files.pythonhosted.org/packages/97/c6/9249f9cc99404e782ce06b3a3710112c32783df59e9bd5ef94cd2771ccaa/JCC-3.10.tar.gz && \
+tar -xvzf JCC-3.10.tar.gz
 
-ENV LD_LIBRARY_PATH=/opt/itksnap/lib/:/opt/niftyreg-1.3.9/lib:/opt/workbench/libs_linux64:/opt/workbench/libs_linux64_software_opengl:${LD_LIBRARY_PATH}
+COPY nighres_custom/setup.py /tmp/JCC-3.10
+ENV PATH $PATH:/usr/lib/jvm/java-11-openjdk-amd64/bin
+ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/lib/jvm/java-11-openjdk-amd64/lib
+ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/
+ENV JCC_JDK /usr/lib/jvm/java-11-openjdk-amd64/
+
+RUN cd /tmp/JCC-3.10 && python setup.py install && \
+cd /opt && git clone http://github.com/nighres/nighres && cd /opt/nighres && ./build.sh && cd /opt/nighres && pip install . && \
+rm -rf /opt/nighres /tmp/JCC-3.10 /tmp/JCC-3.10.tar.gz
+
+ENV LD_LIBRARY_PATH /opt/itksnap/lib/:/opt/niftyreg-1.3.9/lib:/opt/workbench/libs_linux64:/opt/workbench/libs_linux64_software_opengl:${LD_LIBRARY_PATH}
 ENV PATH /opt/conda/bin:/opt/itksnap/bin/:/opt/niftyreg-1.3.9/bin:/opt/workbench/bin_linux64:/opt/ants-2.3.1-minify:/opt/fsl-5.0.11/bin-minify:$PATH
 
 ENV FSLDIR "/opt/fsl-5.0.11"
