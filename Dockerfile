@@ -21,7 +21,7 @@ cmake /opt/niftyreg-1.3.9/src \
 mkdir -p /opt && cd /opt && wget -q https://www.humanconnectome.org/storage/app/media/workbench/workbench-linux64-v1.5.0.zip && unzip workbench-linux64-v1.5.0.zip && rm workbench-linux64-v1.5.0.zip && cd /  && \
 mkdir -p /opt/ants-2.3.1 && curl -fsSL --retry 5 https://dl.dropbox.com/s/1xfhydsf4t4qoxg/ants-Linux-centos6_x86_64-v2.3.1.tar.gz \
 | tar -xz -C /opt/ants-2.3.1 --strip-components 1 && \
-mkdir /opt/ants-2.3.1-minify && for bin in antsRegistration antsApplyTransforms N4BiasFieldCorrection ComposeMultiTransform; do mv /opt/ants-2.3.1/${bin} /opt/ants-2.3.1-minify; done  && \
+mkdir /opt/ants-2.3.1-minify && for bin in antsRegistration antsApplyTransforms N4BiasFieldCorrection ComposeMultiTransform antsRegistrationSyNQuick.sh PrintHeader; do mv /opt/ants-2.3.1/${bin} /opt/ants-2.3.1-minify; done  && \
 rm -rf /opt/ants-2.3.1  && \
 mkdir -p /opt/fsl-5.0.11 && curl -fsSL --retry 5 https://fsl.fmrib.ox.ac.uk/fsldownloads/fsl-5.0.11-centos6_64.tar.gz \
 | tar -xz -C /opt/fsl-5.0.11 --strip-components 1 && \
