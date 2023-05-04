@@ -44,7 +44,7 @@ ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/
 ENV JCC_JDK /usr/lib/jvm/java-11-openjdk-amd64/
 
 RUN cd /tmp/JCC-3.10 && python setup.py install && \
-cd /opt && git clone http://github.com/nighres/nighres && cd /opt/nighres && ./build.sh && cd /opt/nighres && pip install . && \
+cd /opt && git clone http://github.com/nighres/nighres && cd /opt/nighres && git checkout 1901ce9a9afdfad8e2d66ec09600fbfb9fa0151d && ./build.sh && cd /opt/nighres && pip install . && \
 rm -rf /opt/nighres /tmp/JCC-3.10 /tmp/JCC-3.10.tar.gz
 
 ENV LD_LIBRARY_PATH /opt/itksnap/lib/:/opt/niftyreg-1.3.9/lib:/opt/workbench/libs_linux64:/opt/workbench/libs_linux64_software_opengl:${LD_LIBRARY_PATH}
