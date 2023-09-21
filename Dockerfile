@@ -47,9 +47,9 @@ RUN cd /tmp/JCC-3.10 && python setup.py install && \
 cd /opt && git clone http://github.com/nighres/nighres && cd /opt/nighres && git checkout 1901ce9a9afdfad8e2d66ec09600fbfb9fa0151d && ./build.sh && cd /opt/nighres && pip install . && \
 rm -rf /opt/nighres /tmp/JCC-3.10 /tmp/JCC-3.10.tar.gz
 
-COPY pythondeps /opt/pythondeps
+COPY .  /src
 
-RUN pip install --no-cache-dir /opt/pythondeps && \
+RUN pip install --no-cache-dir /src && \
     apt install -y graphviz && \
     wget https://imagemagick.org/archive/binaries/magick && \
     mv magick /usr/bin && chmod a+x /usr/bin/magick
