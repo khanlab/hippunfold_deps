@@ -1,2 +1,2 @@
-# autotop_deps
-Dependencies container for hippocampal_autotop (niftynet, minified fsl/ants, c3d, mcr)
+# hippunfold_deps
+Dependencies container for HippUnfold (niftynet, minified fsl/ants, c3d, mcr, python dependencies)
