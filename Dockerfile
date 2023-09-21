@@ -47,6 +47,14 @@ RUN cd /tmp/JCC-3.10 && python setup.py install && \
 cd /opt && git clone http://github.com/nighres/nighres && cd /opt/nighres && git checkout 1901ce9a9afdfad8e2d66ec09600fbfb9fa0151d && ./build.sh && cd /opt/nighres && pip install . && \
 rm -rf /opt/nighres /tmp/JCC-3.10 /tmp/JCC-3.10.tar.gz
 
+COPY .  /src
+
+ENV SKLEARN_ALLOW_DEPRECATED_SKLEARN_PACKAGE_INSTALL True
+RUN pip install --no-cache-dir /src && \
+    apt install -y graphviz && \
+    wget https://imagemagick.org/archive/binaries/magick && \
+    mv magick /usr/bin && chmod a+x /usr/bin/magick
+
 ENV LD_LIBRARY_PATH /opt/itksnap/lib/:/opt/niftyreg-1.3.9/lib:/opt/workbench/libs_linux64:/opt/workbench/libs_linux64_software_opengl:${LD_LIBRARY_PATH}
 ENV PATH /opt/conda/bin:/opt/itksnap/bin/:/opt/niftyreg-1.3.9/bin:/opt/workbench/bin_linux64:/opt/ants-2.3.1-minify:/opt/fsl-5.0.11/bin-minify:$PATH
 
