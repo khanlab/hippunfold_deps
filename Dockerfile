@@ -49,6 +49,7 @@ rm -rf /opt/nighres /tmp/JCC-3.10 /tmp/JCC-3.10.tar.gz
 
 COPY .  /src
 
+ENV SKLEARN_ALLOW_DEPRECATED_SKLEARN_PACKAGE_INSTALL True
 RUN pip install --no-cache-dir /src && \
     apt install -y graphviz && \
     wget https://imagemagick.org/archive/binaries/magick && \
