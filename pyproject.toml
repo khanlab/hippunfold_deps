@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "autotop_deps"
+name = "hippunfold_deps"
 version = "0.5.0"
 description = "Dependencies for HippUnfold"
 authors = ["Jordan DeKraker & Ali Khan <alik@robarts.ca>"]

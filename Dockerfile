@@ -2,7 +2,7 @@ FROM continuumio/miniconda3:4.10.3
 
 MAINTAINER alik@robarts.ca
 
-#dependencies for hippocampal autotop
+#dependencies for hippunfold
 # note: this installs minified versions of fsl and ants to save space.. 
 
 RUN apt-get --allow-releaseinfo-change  update && mkdir -p /usr/share/man/man1  &&  apt-get install -y curl tree unzip bc default-jre libgomp1 cmake cmake-curses-gui libpng-dev zlib1g-dev build-essential wget bzip2 ca-certificates gnupg2 squashfs-tools git graphviz-dev && \
