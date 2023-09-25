@@ -3,7 +3,7 @@ FROM continuumio/miniconda3:4.10.3
 MAINTAINER alik@robarts.ca
 
 #dependencies for hippunfold
-# note: this installs minified versions of fsl and ants to save space.. 
+# note: this installs minified versions of ants to save space.. 
 
 RUN apt-get --allow-releaseinfo-change  update && mkdir -p /usr/share/man/man1  &&  apt-get install -y curl tree unzip bc default-jre libgomp1 cmake cmake-curses-gui libpng-dev zlib1g-dev build-essential wget bzip2 ca-certificates gnupg2 squashfs-tools git graphviz-dev && \
 mkdir -p /opt/niftyreg-1.3.9/src && \
@@ -23,10 +23,6 @@ mkdir -p /opt/ants-2.3.1 && curl -fsSL --retry 5 https://dl.dropbox.com/s/1xfhyd
 | tar -xz -C /opt/ants-2.3.1 --strip-components 1 && \
 mkdir /opt/ants-2.3.1-minify && for bin in antsRegistration antsApplyTransforms N4BiasFieldCorrection ComposeMultiTransform antsRegistrationSyNQuick.sh PrintHeader; do mv /opt/ants-2.3.1/${bin} /opt/ants-2.3.1-minify; done  && \
 rm -rf /opt/ants-2.3.1  && \
-mkdir -p /opt/fsl-5.0.11 && curl -fsSL --retry 5 https://fsl.fmrib.ox.ac.uk/fsldownloads/fsl-5.0.11-centos6_64.tar.gz \
-| tar -xz -C /opt/fsl-5.0.11 --strip-components 1 && \
-mkdir /opt/fsl-5.0.11/bin-minify && for bin in flirt fslmaths fslreorient2std fslroi fslstats; do mv /opt/fsl-5.0.11/bin/${bin} /opt/fsl-5.0.11/bin-minify; done && \
-rm -rf /opt/fsl-5.0.11/bin && rm -rf /opt/fsl-5.0.11/data /opt/fsl-5.0.11/extras /opt/fsl-5.0.11/lib /opt/fsl-5.0.11/src /opt/fsl-5.0.11/doc && \
 wget -O itksnap.tar.gz 'https://sourceforge.net/projects/itk-snap/files/itk-snap/Nightly/itksnap-nightly-master-Linux-gcc64-qt4.tar.gz/download' \
 \
 && tar -zxf itksnap.tar.gz -C /opt/ \
@@ -56,11 +52,8 @@ RUN pip install --no-cache-dir /src && \
     mv magick /usr/bin && chmod a+x /usr/bin/magick
 
 ENV LD_LIBRARY_PATH /opt/itksnap/lib/:/opt/niftyreg-1.3.9/lib:/opt/workbench/libs_linux64:/opt/workbench/libs_linux64_software_opengl:${LD_LIBRARY_PATH}
-ENV PATH /opt/conda/bin:/opt/itksnap/bin/:/opt/niftyreg-1.3.9/bin:/opt/workbench/bin_linux64:/opt/ants-2.3.1-minify:/opt/fsl-5.0.11/bin-minify:$PATH
+ENV PATH /opt/conda/bin:/opt/itksnap/bin/:/opt/niftyreg-1.3.9/bin:/opt/workbench/bin_linux64:/opt/ants-2.3.1-minify:$PATH
 
-ENV FSLDIR "/opt/fsl-5.0.11"
-ENV FSLOUTPUTTYPE NIFTI_GZ
-ENV FSLMULTIFILEQUIT TRUE
 ENV _JAVA_OPTIONS=
 ENV ANTSPATH /opt/ants-2.3.1-minify/
 
