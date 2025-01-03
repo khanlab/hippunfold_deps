@@ -19,7 +19,7 @@ cmake /opt/niftyreg-1.3.9/src \
   make && \
   make install && rm -rf /opt/niftyreg-1.3.9/src && \
 mkdir -p /opt && cd /opt && wget -q https://www.humanconnectome.org/storage/app/media/workbench/workbench-linux64-v2.0.1.zip && unzip workbench-linux64-v2.0.1.zip && rm workbench-linux64-v2.0.1.zip && cd /  && \
-cd /opt && wget -q https://github.com/ANTsX/ANTs/releases/download/v2.5.4/ants-2.5.4-ubuntu-20.04-X64-gcc.zip && unzip ants-2.5.4-ubuntu-22.04-X64-gcc.zip && rm ants-2.5.4-ubuntu-22.04-X64-gcc.zip && \
+cd /opt && wget -q https://github.com/ANTsX/ANTs/releases/download/v2.5.4/ants-2.5.4-ubuntu-20.04-X64-gcc.zip && unzip ants-2.5.4-ubuntu-20.04-X64-gcc.zip && rm ants-2.5.4-ubuntu-20.04-X64-gcc.zip && \
 mkdir /opt/ants-2.5.4-minify && for bin in antsRegistration antsApplyTransforms N4BiasFieldCorrection ComposeMultiTransform antsRegistrationSyNQuick.sh PrintHeader; do mv /opt/ants-2.5.4/bin/${bin} /opt/ants-2.5.4-minify; done  && \
 rm -rf /opt/ants-2.5.4  && \
 wget -O itksnap.tar.gz 'https://sourceforge.net/projects/itk-snap/files/itk-snap/Nightly/itksnap-nightly-master-Linux-gcc64-qt4.tar.gz/download' \
