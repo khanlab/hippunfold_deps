@@ -18,7 +18,7 @@ cmake /opt/niftyreg-1.3.9/src \
     -DCMAKE_INSTALL_PREFIX=/opt/niftyreg-1.3.9  && \
   make && \
   make install && rm -rf /opt/niftyreg-1.3.9/src && \
-mkdir -p /opt && cd /opt && wget -q https://www.humanconnectome.org/storage/app/media/workbench/workbench-linux64-v2.0.1.zip && unzip workbench-linux64-v2.0.1.zip && rm workbench-linux64-v2.0.1.zip && cd /  && \
+mkdir -p /opt && cd /opt && wget -q https://www.dropbox.com/scl/fi/k8nxg3f11xzmtv2msk8x2/workbench-linux64-dev_latest.zip?rlkey=1npndd9lc11i8q4nld2wz5o2x&dl=0 && unzip workbench-linux64-dev_latest.zip && rm workbench-linux64-dev_latest.zip && cd /  && \
 cd /opt && wget -q https://github.com/ANTsX/ANTs/releases/download/v2.5.4/ants-2.5.4-ubuntu18.04-X64-gcc.zip && unzip ants-2.5.4-ubuntu18.04-X64-gcc.zip && rm ants-2.5.4-ubuntu18.04-X64-gcc.zip && \
 mkdir /opt/ants-2.5.4-minify && for bin in antsRegistration antsApplyTransforms N4BiasFieldCorrection ComposeMultiTransform antsRegistrationSyNQuick.sh PrintHeader; do mv /opt/ants-2.5.4/bin/${bin} /opt/ants-2.5.4-minify; done  && \
 rm -rf /opt/ants-2.5.4  && \
