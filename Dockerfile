@@ -20,6 +20,7 @@ cmake /opt/niftyreg-1.3.9/src \
   make install && rm -rf /opt/niftyreg-1.3.9/src && \
 mkdir -p /opt && cd /opt && wget -q 'https://www.dropbox.com/scl/fi/k8nxg3f11xzmtv2msk8x2/workbench-linux64-dev_latest.zip?rlkey=1npndd9lc11i8q4nld2wz5o2x&dl=0' -O workbench-linux64-dev_latest.zip && \
 unzip workbench-linux64-dev_latest.zip && rm workbench-linux64-dev_latest.zip && cd /  && \
+mkdir -p /opt/laynii-2.7.0 && cd /opt/laynii-2.7.0 && wget -q https://github.com/layerfMRI/LAYNII/releases/download/v2.7.0/LayNii_v2.7.0_Linux64.zip && unzip LayNii_v2.7.0_Linux64.zip && rm LayNii_v2.7.0_Linux64.zip && \
 cd /opt && wget -q https://github.com/ANTsX/ANTs/releases/download/v2.5.4/ants-2.5.4-ubuntu18.04-X64-gcc.zip && unzip ants-2.5.4-ubuntu18.04-X64-gcc.zip && rm ants-2.5.4-ubuntu18.04-X64-gcc.zip && \
 mkdir /opt/ants-2.5.4-minify && for bin in antsRegistration antsApplyTransforms N4BiasFieldCorrection ComposeMultiTransform antsRegistrationSyNQuick.sh PrintHeader; do mv /opt/ants-2.5.4/bin/${bin} /opt/ants-2.5.4-minify; done  && \
 rm -rf /opt/ants-2.5.4  && \
@@ -52,7 +53,7 @@ RUN pip install --no-cache-dir /src && \
     mv magick /usr/bin && chmod a+x /usr/bin/magick
 
 ENV LD_LIBRARY_PATH /opt/itksnap/lib/:/opt/niftyreg-1.3.9/lib:/opt/workbench/libs_linux64:/opt/workbench/libs_linux64_software_opengl:${LD_LIBRARY_PATH}
-ENV PATH /opt/conda/bin:/opt/itksnap/bin/:/opt/niftyreg-1.3.9/bin:/opt/workbench/bin_linux64:/opt/ants-2.5.4-minify:$PATH
+ENV PATH /opt/conda/bin:/opt/itksnap/bin/:/opt/niftyreg-1.3.9/bin:/opt/workbench/bin_linux64:/opt/ants-2.5.4-minify:/opt/laynii-2.7.0:$PATH
 
 ENV _JAVA_OPTIONS=
 ENV ANTSPATH /opt/ants-2.5.4-minify/
