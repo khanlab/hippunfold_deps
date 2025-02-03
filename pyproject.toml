@@ -5,7 +5,7 @@ description = "Dependencies for HippUnfold"
 authors = ["Jordan DeKraker & Ali Khan <alik@robarts.ca>"]
 
 [tool.poetry.dependencies]
-python = ">=3.8,<3.10"
+python = ">=3.9,<3.10"
 batchgenerators = "0.21"
 nnunet-inference-on-cpu-and-gpu = "1.6.6"
 numpy = "1.21.2"
