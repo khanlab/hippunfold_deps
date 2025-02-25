@@ -18,11 +18,12 @@ cmake /opt/niftyreg-1.3.9/src \
     -DCMAKE_INSTALL_PREFIX=/opt/niftyreg-1.3.9  && \
   make && \
   make install && rm -rf /opt/niftyreg-1.3.9/src && \
-mkdir -p /opt && cd /opt && wget -q https://www.humanconnectome.org/storage/app/media/workbench/workbench-linux64-v1.5.0.zip && unzip workbench-linux64-v1.5.0.zip && rm workbench-linux64-v1.5.0.zip && cd /  && \
-mkdir -p /opt/ants-2.3.1 && curl -fsSL --retry 5 https://dl.dropbox.com/s/1xfhydsf4t4qoxg/ants-Linux-centos6_x86_64-v2.3.1.tar.gz \
-| tar -xz -C /opt/ants-2.3.1 --strip-components 1 && \
-mkdir /opt/ants-2.3.1-minify && for bin in antsRegistration antsApplyTransforms N4BiasFieldCorrection ComposeMultiTransform antsRegistrationSyNQuick.sh PrintHeader; do mv /opt/ants-2.3.1/${bin} /opt/ants-2.3.1-minify; done  && \
-rm -rf /opt/ants-2.3.1  && \
+mkdir -p /opt && cd /opt && wget -q 'https://www.dropbox.com/scl/fi/k8nxg3f11xzmtv2msk8x2/workbench-linux64-dev_latest.zip?rlkey=1npndd9lc11i8q4nld2wz5o2x&dl=0' -O workbench-linux64-dev_latest.zip && \
+unzip workbench-linux64-dev_latest.zip && rm workbench-linux64-dev_latest.zip && cd /  && \
+mkdir -p /opt/laynii-2.7.0 && cd /opt/laynii-2.7.0 && wget -q https://github.com/layerfMRI/LAYNII/releases/download/v2.7.0/LayNii_v2.7.0_Linux64.zip && unzip LayNii_v2.7.0_Linux64.zip && rm LayNii_v2.7.0_Linux64.zip && \
+cd /opt && wget -q https://github.com/ANTsX/ANTs/releases/download/v2.5.4/ants-2.5.4-ubuntu18.04-X64-gcc.zip && unzip ants-2.5.4-ubuntu18.04-X64-gcc.zip && rm ants-2.5.4-ubuntu18.04-X64-gcc.zip && \
+mkdir /opt/ants-2.5.4-minify && for bin in antsRegistration antsApplyTransforms N4BiasFieldCorrection ComposeMultiTransform antsRegistrationSyNQuick.sh PrintHeader; do mv /opt/ants-2.5.4/bin/${bin} /opt/ants-2.5.4-minify; done  && \
+rm -rf /opt/ants-2.5.4  && \
 wget -O itksnap.tar.gz 'https://sourceforge.net/projects/itk-snap/files/itk-snap/Nightly/itksnap-nightly-master-Linux-gcc64-qt4.tar.gz/download' \
 \
 && tar -zxf itksnap.tar.gz -C /opt/ \
@@ -52,8 +53,8 @@ RUN pip install --no-cache-dir /src && \
     mv magick /usr/bin && chmod a+x /usr/bin/magick
 
 ENV LD_LIBRARY_PATH /opt/itksnap/lib/:/opt/niftyreg-1.3.9/lib:/opt/workbench/libs_linux64:/opt/workbench/libs_linux64_software_opengl:${LD_LIBRARY_PATH}
-ENV PATH /opt/conda/bin:/opt/itksnap/bin/:/opt/niftyreg-1.3.9/bin:/opt/workbench/bin_linux64:/opt/ants-2.3.1-minify:$PATH
+ENV PATH /opt/conda/bin:/opt/itksnap/bin/:/opt/niftyreg-1.3.9/bin:/opt/workbench/bin_linux64:/opt/ants-2.5.4-minify:/opt/laynii-2.7.0:$PATH
 
 ENV _JAVA_OPTIONS=
-ENV ANTSPATH /opt/ants-2.3.1-minify/
+ENV ANTSPATH /opt/ants-2.5.4-minify/
 
