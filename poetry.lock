@@ -496,22 +496,22 @@ test = ["codecov (>=2.1)", "pytest (>=7.2)", "pytest-cov (>=4.0)"]
 
 [[package]]
 name = "nibabel"
-version = "3.2.2"
+version = "4.0.2"
 description = "Access a multitude of neuroimaging data formats"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.7"
 files = [
-    {file = "nibabel-3.2.2-py3-none-any.whl", hash = "sha256:7df7a2733461441d3aacc61f36f5e100ec533d43ed09a191293bb4ca5a4f10f6"},
-    {file = "nibabel-3.2.2.tar.gz", hash = "sha256:b0dcc174b30405ce9e8fec1eab3cbbb20f5c5e4920976c08b22e050b7c124f94"},
+    {file = "nibabel-4.0.2-py3-none-any.whl", hash = "sha256:c4fe76348aa865f8300beaaf2a69d31624964c861853ef80c06e33d5f244413c"},
+    {file = "nibabel-4.0.2.tar.gz", hash = "sha256:45c49b5349351b45f6c045a91aa02b4f0d367686ff3284632ef95ac65b930786"},
 ]
 
 [package.dependencies]
-numpy = ">=1.14"
-packaging = ">=14.3"
+numpy = ">=1.17"
+packaging = ">=17.0"
 setuptools = "*"
 
 [package.extras]
-all = ["coverage", "flake8", "gitpython", "h5py", "matplotlib (>=1.5.3)", "numpydoc", "pillow", "pydicom (>=1.0.0)", "pytest (!=5.3.4)", "pytest (<7)", "pytest-cov", "pytest-doctestplus (!=0.9.0)", "scipy", "sphinx (>=0.3,<3)", "texext", "twine"]
+all = ["coverage", "flake8", "gitpython", "h5py", "matplotlib (>=1.5.3)", "numpydoc", "pillow", "pydicom (>=1.0.0)", "pytest (!=5.3.4)", "pytest-cov", "pytest-doctestplus", "pyzstd (>=0.14.3)", "scipy", "sphinx (>=0.3,<3)", "texext", "twine"]
 dev = ["gitpython", "twine"]
 dicom = ["pydicom (>=1.0.0)"]
 dicomfs = ["pillow", "pydicom (>=1.0.0)"]
@@ -519,7 +519,8 @@ doc = ["matplotlib (>=1.5.3)", "numpydoc", "sphinx (>=0.3,<3)", "texext"]
 minc2 = ["h5py"]
 spm = ["scipy"]
 style = ["flake8"]
-test = ["coverage", "pytest (!=5.3.4)", "pytest (<7)", "pytest-cov", "pytest-doctestplus (!=0.9.0)"]
+test = ["coverage", "pytest (!=5.3.4)", "pytest-cov", "pytest-doctestplus"]
+zstd = ["pyzstd (>=0.14.3)"]
 
 [[package]]
 name = "nilearn"
@@ -1467,4 +1468,4 @@ web = ["wslink (>=1.0.4)"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<3.10"
-content-hash = "96be10dfbc79aa939b93acb168aec58e6184ef9b0b3360e051ae339b6a900117"
+content-hash = "86ffb0ab1c3bbc534532f13c3a2bb9d430a210f504c88669f4c82f628cf9673f"
